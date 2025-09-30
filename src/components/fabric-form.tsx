@@ -31,7 +31,6 @@ const formSchema = z.object({
   qty: z.coerce.number().int().min(0, "Quantity must be non-negative"),
   image: z.string().url("Must be a valid URL"),
   description: z.string().min(10, "Description should be at least 10 characters."),
-  qrCode: z.string().url("Must be a valid URL for QR code").or(z.literal('')),
 });
 
 type FabricFormProps = {
@@ -53,7 +52,6 @@ export function FabricForm({ fabric }: FabricFormProps) {
       qty: fabric.qty,
       image: fabric.image,
       description: fabric.description,
-      qrCode: fabric.qrCode ?? '',
     } : {
       name: "",
       articleNo: "",
@@ -61,7 +59,6 @@ export function FabricForm({ fabric }: FabricFormProps) {
       qty: 0,
       image: "",
       description: "",
-      qrCode: "",
     },
   });
 
@@ -199,23 +196,6 @@ export function FabricForm({ fabric }: FabricFormProps) {
                   <FormControl>
                     <Input placeholder="https://example.com/image.jpg" {...field} />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="qrCode"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>QR Code URL</FormLabel>
-                  <FormControl>
-                    <Input placeholder="https://example.com/qrcode.png" {...field} />
-                  </FormControl>
-                   <FormDescription>
-                    URL of the QR code image for this fabric.
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

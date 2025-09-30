@@ -8,9 +8,16 @@ import Header from '@/components/header';
 import { useAuth } from '@/hooks/use-auth';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Tag, Warehouse } from 'lucide-react';
+import { ArrowLeft, Tag, Warehouse, QrCode } from 'lucide-react';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function ProductDetailPage({ params }: { params: Promise<{ articleNo: string }> }) {
   const { protectRoute, loading: authLoading } = useAuth();
@@ -35,7 +42,9 @@ export default function ProductDetailPage({ params }: { params: Promise<{ articl
         setLoading(false);
       }
     };
-    fetchProduct();
+    if (articleNo) {
+        fetchProduct();
+    }
   }, [articleNo]);
 
   const placeholder = PlaceHolderImages.find(p => p.id === product?.articleNo);
@@ -128,7 +137,31 @@ export default function ProductDetailPage({ params }: { params: Promise<{ articl
                     </div>
 
                     <h2 className="text-xl font-headline font-semibold mb-2">Description</h2>
-                    <p className="text-foreground/80 leading-relaxed">{product.description}</p>
+                    <p className="text-foreground/80 leading-relaxed mb-8">{product.description}</p>
+                    
+                    {product.qrCode && (
+                       <Dialog>
+                        <DialogTrigger asChild>
+                           <Button variant="outline">
+                                <QrCode className="mr-2 h-4 w-4" />
+                                Show QR Code
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                            <DialogTitle>Scan QR Code for {product.name}</DialogTitle>
+                            </DialogHeader>
+                            <div className="flex justify-center p-4">
+                                <Image 
+                                    src={product.qrCode}
+                                    alt={`QR Code for ${product.name}`}
+                                    width={250}
+                                    height={250}
+                                />
+                            </div>
+                        </DialogContent>
+                        </Dialog>
+                    )}
                 </div>
             </div>
         </div>
