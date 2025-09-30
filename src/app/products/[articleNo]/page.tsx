@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import Image from 'next/image';
 import { getProductByArticleNo } from '@/lib/data';
 import type { Product } from '@/lib/types';
@@ -8,21 +8,22 @@ import Header from '@/components/header';
 import { useAuth } from '@/hooks/use-auth';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Package, Tag, Warehouse } from 'lucide-react';
+import { ArrowLeft, Tag, Warehouse } from 'lucide-react';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export default function ProductDetailPage({ params }: { params: { articleNo: string } }) {
+export default function ProductDetailPage({ params }: { params: Promise<{ articleNo: string }> }) {
   const { protectRoute, loading: authLoading } = useAuth();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
+  const { articleNo } = use(params);
 
   protectRoute();
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const fetchedProduct = await getProductByArticleNo(params.articleNo);
+        const fetchedProduct = await getProductByArticleNo(articleNo);
         if (fetchedProduct) {
           setProduct(fetchedProduct);
         }
@@ -33,7 +34,7 @@ export default function ProductDetailPage({ params }: { params: { articleNo: str
       }
     };
     fetchProduct();
-  }, [params.articleNo]);
+  }, [articleNo]);
 
   const placeholder = PlaceHolderImages.find(p => p.id === product?.articleNo);
   const imageUrl = placeholder?.imageUrl ?? 'https://picsum.photos/seed/default/800/600';
