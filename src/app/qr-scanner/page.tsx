@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
@@ -124,23 +125,25 @@ export default function QRScannerPage() {
             </p>
 
             <div className="relative aspect-square w-full rounded-md overflow-hidden bg-muted flex items-center justify-center">
-              {hasCameraPermission === true && (
+              {hasCameraPermission === true ? (
                 <QrScanner
                   onScan={handleScan}
                   onError={handleError}
                   constraints={{ video: { facingMode: 'environment' } }}
                   style={{ width: '100%', height: '100%' }}
                 />
-              )}
-              {hasCameraPermission === false && (
+              ) : (
                 <div className="text-center text-muted-foreground p-4">
-                  <CameraOff className="h-16 w-16 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold">Camera Access Required</h3>
-                  <p>Please grant camera permissions to scan QR codes.</p>
+                    {hasCameraPermission === false ? (
+                        <>
+                            <CameraOff className="h-16 w-16 mx-auto mb-4" />
+                            <h3 className="text-xl font-semibold">Camera Access Required</h3>
+                            <p>Please grant camera permissions to scan QR codes.</p>
+                        </>
+                    ) : (
+                        <p className="text-muted-foreground">Requesting camera permission...</p>
+                    )}
                 </div>
-              )}
-               {hasCameraPermission === null && (
-                 <p className="text-muted-foreground">Requesting camera permission...</p>
               )}
             </div>
 
