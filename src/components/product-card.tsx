@@ -34,7 +34,12 @@ export function ProductCard({ product }: ProductCardProps) {
           <p className="text-muted-foreground text-sm line-clamp-2 flex-grow">{product.description}</p>
         </CardContent>
         <CardFooter className="p-4 flex items-center justify-between">
-            <p className="text-xl font-bold text-primary">${product.price.toFixed(2)}</p>
+            <p className="text-xl font-bold text-primary">{
+              new Intl.NumberFormat("en-IN", {
+                style: "currency",
+                currency: "INR",
+              }).format(product.price)
+            }</p>
             <Button variant="ghost" size="sm" className="text-primary hover:text-primary">
                 View Details
                 <ArrowRight className="ml-2 h-4 w-4" />

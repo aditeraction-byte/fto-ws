@@ -18,7 +18,9 @@ export default function ProductDetailPage({ params }: { params: Promise<{ articl
   const [loading, setLoading] = useState(true);
   const { articleNo } = use(params);
 
-  protectRoute();
+  useEffect(() => {
+    protectRoute();
+  }, [protectRoute]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -107,7 +109,12 @@ export default function ProductDetailPage({ params }: { params: Promise<{ articl
                 </div>
                 <div className="py-4">
                     <h1 className="text-4xl font-headline font-bold mb-2">{product.name}</h1>
-                    <p className="text-3xl font-bold text-primary mb-6">${product.price.toFixed(2)}</p>
+                    <p className="text-3xl font-bold text-primary mb-6">
+                        {new Intl.NumberFormat("en-IN", {
+                            style: "currency",
+                            currency: "INR",
+                        }).format(product.price)}
+                    </p>
 
                     <div className="flex items-center space-x-6 text-sm mb-6">
                         <div className="flex items-center text-muted-foreground">
