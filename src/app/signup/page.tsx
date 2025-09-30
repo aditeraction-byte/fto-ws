@@ -60,7 +60,7 @@ export default function SignupPage() {
          <div className="flex flex-col space-y-2 text-center">
             <div className="flex items-center justify-center space-x-2 mb-4">
                 <Logo className="h-8 w-8 text-primary" />
-                <h1 className="text-3xl font-headline font-bold">ProductVerse</h1>
+                <h1 className="text-3xl font-headline font-bold">FTO-WS</h1>
             </div>
         </div>
         <Card>

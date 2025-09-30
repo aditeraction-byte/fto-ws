@@ -30,7 +30,7 @@ export function AdminSidebar() {
         <div className="flex h-16 items-center border-b px-4 lg:px-6">
           <Link href="/admin/dashboard" className="flex items-center gap-2 font-semibold">
             <Logo className="h-6 w-6 text-primary" />
-            <span className="font-headline text-lg">ProductVerse</span>
+            <span className="font-headline text-lg">FTO-WS</span>
           </Link>
         </div>
         <div className="flex-1">

@@ -37,7 +37,7 @@ export default function Header() {
           className="flex items-center gap-2 text-lg font-semibold md:text-base"
         >
           <Logo className="h-6 w-6 text-primary" />
-          <span className="sr-only">ProductVerse</span>
+          <span className="sr-only">FTO-WS</span>
         </Link>
         <Link
           href={isAdmin ? '/admin/dashboard' : '/dashboard'}
@@ -82,7 +82,7 @@ export default function Header() {
                 className="flex items-center gap-2 text-lg font-semibold"
               >
                 <Logo className="h-6 w-6 text-primary" />
-                <span className="font-headline">ProductVerse</span>
+                <span className="font-headline">FTO-WS</span>
               </Link>
               <Link href="/admin/dashboard" className="text-muted-foreground hover:text-foreground">
                 <Home className="mr-2 h-5 w-5 inline-block" />
