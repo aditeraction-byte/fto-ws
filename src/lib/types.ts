@@ -8,6 +8,7 @@ export type Product = {
   description: string;
   createdAt: string;
   updatedAt: string;
+  qrCode?: string;
 };
 
 export type User = {

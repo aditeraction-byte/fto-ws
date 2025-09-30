@@ -12,6 +12,7 @@ const productSchema = z.object({
   qty: z.coerce.number().int().min(0, "Quantity must be non-negative"),
   image: z.string().url("Must be a valid URL"),
   description: z.string().min(1, "Description is required"),
+  qrCode: z.string().url("Must be a valid URL for QR code").or(z.literal('')),
 });
 
 export async function addProductAction(data: FormData) {
