@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { getProducts } from '@/lib/data';
 import type { Product } from '@/lib/types';
 import Header from '@/components/header';
@@ -18,7 +18,7 @@ export default function Dashboard() {
 
   protectRoute();
 
-  useState(() => {
+  useEffect(() => {
     const fetchProducts = async () => {
       try {
         const fetchedProducts = await getProducts();
@@ -30,7 +30,7 @@ export default function Dashboard() {
       }
     };
     fetchProducts();
-  });
+  }, []);
 
   const filteredProducts = useMemo(() => {
     if (!searchTerm) return products;
