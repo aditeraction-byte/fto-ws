@@ -22,6 +22,7 @@ import { deleteProductAction } from "@/lib/actions";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 const CellActions = ({ product }: { product: Product }) => {
     const { toast } = useToast();
