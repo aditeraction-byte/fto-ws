@@ -27,6 +27,7 @@ export async function addProductAction(data: FormData) {
   try {
     await addProduct(validatedFields.data);
     revalidatePath("/admin/products");
+    revalidatePath("/admin/fabrics");
     return { success: true };
   } catch (e) {
     return {
@@ -55,6 +56,8 @@ export async function updateProductAction(id: string, data: FormData) {
     revalidatePath("/admin/products");
     revalidatePath(`/admin/products/edit/${id}`);
     revalidatePath(`/products/${existingProduct.articleNo}`);
+    revalidatePath("/admin/fabrics");
+    revalidatePath(`/admin/fabrics/edit/${id}`);
     return { success: true };
   } catch (e) {
     return {
@@ -72,6 +75,7 @@ export async function deleteProductAction(id: string) {
       return { success: false, error: "Product not found." };
     }
     revalidatePath("/admin/products");
+    revalidatePath("/admin/fabrics");
     return { success: true };
   } catch (e) {
     return {

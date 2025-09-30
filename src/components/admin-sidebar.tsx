@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, Home, Package } from "lucide-react";
+import { Bell, Home, Package, Layers } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -21,6 +21,7 @@ export function AdminSidebar() {
   const navItems = [
     { href: "/admin/dashboard", icon: Home, label: "Dashboard" },
     { href: "/admin/products", icon: Package, label: "Products" },
+    { href: "/admin/fabrics", icon: Layers, label: "Fabrics" },
   ];
 
   return (
@@ -40,7 +41,7 @@ export function AdminSidebar() {
                 href={item.href}
                 className={cn(
                   "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
-                  pathname === item.href && "bg-muted text-primary"
+                  pathname.startsWith(item.href) && "bg-muted text-primary"
                 )}
               >
                 <item.icon className="h-4 w-4" />
