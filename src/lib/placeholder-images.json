@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "A101",
+      "description": "A smart projector on a modern table.",
+      "imageUrl": "https://images.unsplash.com/photo-1554936970-ce06538caf54?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzbWFydCUyMHByb2plY3RvcnxlbnwwfHx8fDE3NTkxMjg4NTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "smart projector"
+    },
+    {
+      "id": "A102",
+      "description": "Sleek wireless headphones on a clean background.",
+      "imageUrl": "https://images.unsplash.com/photo-1598331668826-20cecc596b86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3aXJlbGVzcyUyMGhlYWRwaG9uZXN8ZW58MHx8fHwxNzU5MjA3MTU5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "wireless headphones"
+    },
+    {
+      "id": "A103",
+      "description": "A mechanical keyboard with RGB lighting.",
+      "imageUrl": "https://images.unsplash.com/photo-1626958390943-a70309376444?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtZWNoYW5pY2FsJTIwa2V5Ym9hcmR8ZW58MHx8fHwxNzU5MTY3Mjk0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mechanical keyboard"
+    },
+    {
+      "id": "B201",
+      "description": "A modern smartwatch displaying fitness data.",
+      "imageUrl": "https://images.unsplash.com/photo-1698729616908-263756940577?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtb2Rlcm4lMjBzbWFydHdhdGNofGVufDB8fHx8MTc1OTIxNTk5Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "modern smartwatch"
+    },
+    {
+      "id": "B202",
+      "description": "A smart speaker on a living room shelf.",
+      "imageUrl": "https://images.unsplash.com/photo-1519558260268-cde7e03a0152?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzbWFydCUyMHNwZWFrZXJ8ZW58MHx8fHwxNzU5MTk3NjUzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "smart speaker"
+    },
+    {
+      "id": "C301",
+      "description": "An ergonomic office chair in a bright workspace.",
+      "imageUrl": "https://images.unsplash.com/photo-1681418659069-eef28d44aeab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxlcmdvbm9taWMlMjBjaGFpcnxlbnwwfHx8fDE3NTkyMTY3NjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ergonomic chair"
+    }
+  ]
 }

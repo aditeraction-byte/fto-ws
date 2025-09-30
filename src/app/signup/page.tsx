@@ -29,10 +29,10 @@ import { Logo } from "@/components/icons";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email." }),
-  password: z.string().min(1, { message: "Password is required." }),
+  password: z.string().min(8, { message: "Password must be at least 8 characters." }),
 });
 
-export default function LoginPage() {
+export default function SignupPage() {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -45,43 +45,19 @@ export default function LoginPage() {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Mock authentication
-    if (
-      (values.email === "admin@example.com" && values.password === "admin123") ||
-      (values.email === "user1@example.com" && values.password === "user123") ||
-      (values.email === "user2@example.com" && values.password === "user123")
-    ) {
-      const isAdmin = values.email === "admin@example.com";
-      const user = { email: values.email, role: isAdmin ? "admin" : "user" };
-      
-      // In a real app, you'd get a token from your backend.
-      // Here, we use localStorage to simulate a session.
-      localStorage.setItem("user-session", JSON.stringify(user));
-      
-      toast({
-        title: "Login Successful",
-        description: `Welcome back, ${values.email}!`,
-      });
-
-      if (isAdmin) {
-        router.push("/admin/dashboard");
-      } else {
-        router.push("/dashboard");
-      }
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Login Failed",
-        description: "Invalid email or password. Please try again.",
-      });
-      form.reset();
-    }
+    // Mock signup
+    console.log("New user signed up:", values.email);
+    toast({
+      title: "Account Created",
+      description: "You have successfully signed up. Please log in.",
+    });
+    router.push("/");
   };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[400px]">
-        <div className="flex flex-col space-y-2 text-center">
+         <div className="flex flex-col space-y-2 text-center">
             <div className="flex items-center justify-center space-x-2 mb-4">
                 <Logo className="h-8 w-8 text-primary" />
                 <h1 className="text-3xl font-headline font-bold">ProductVerse</h1>
@@ -89,9 +65,9 @@ export default function LoginPage() {
         </div>
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl font-headline">Welcome Back</CardTitle>
+            <CardTitle className="text-2xl font-headline">Create an Account</CardTitle>
             <CardDescription>
-              Enter your credentials to access your account.
+              Enter your details below to create your new account.
             </CardDescription>
           </CardHeader>
           <Form {...form}>
@@ -130,15 +106,15 @@ export default function LoginPage() {
               </CardContent>
               <CardFooter className="flex-col gap-4">
                 <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
-                  Sign In
+                  Sign Up
                 </Button>
                 <p className="text-sm text-muted-foreground">
-                  Don&apos;t have an account?{" "}
+                  Already have an account?{" "}
                   <Link
-                    href="/signup"
+                    href="/"
                     className="font-medium text-primary hover:underline"
                   >
-                    Sign up
+                    Sign in
                   </Link>
                 </p>
               </CardFooter>
