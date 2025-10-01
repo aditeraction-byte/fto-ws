@@ -45,7 +45,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ articl
   }, [articleNo]);
 
   const placeholder = PlaceHolderImages.find(p => p.id === product?.articleNo);
-  const imageUrl = placeholder?.imageUrl ?? 'https://picsum.photos/seed/default/800/600';
+  const imageUrl = placeholder?.imageUrl ?? 'https://picsum.photos/seed/default/600/400';
 
   if (authLoading || loading) {
     return (
@@ -108,12 +108,12 @@ export default function ProductDetailPage({ params }: { params: Promise<{ articl
                   </Link>
               </Button>
               <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-                  <div className="aspect-square bg-card rounded-lg overflow-hidden border">
+                  <div className="aspect-w-4 aspect-h-3 bg-card rounded-lg overflow-hidden border">
                       <Image
                           src={imageUrl}
                           alt={product.name}
-                          width={800}
-                          height={800}
+                          width={600}
+                          height={400}
                           className="object-cover w-full h-full"
                           data-ai-hint={placeholder?.imageHint}
                       />
