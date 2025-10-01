@@ -8,7 +8,7 @@ import Header from '@/components/header';
 import { useAuth } from '@/hooks/use-auth';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Tag, Warehouse, QrCode } from 'lucide-react';
+import { ArrowLeft, Tag, Warehouse, QrCode, Download } from 'lucide-react';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
@@ -17,6 +17,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogFooter,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { AuthGuard } from '@/components/auth-guard';
 
@@ -151,7 +153,10 @@ export default function ProductDetailPage({ params }: { params: Promise<{ articl
                           </DialogTrigger>
                           <DialogContent className="sm:max-w-[425px]">
                               <DialogHeader>
-                              <DialogTitle>Scan QR Code for {product.name}</DialogTitle>
+                                <DialogTitle>QR Code for {product.name}</DialogTitle>
+                                <DialogDescription>
+                                    Scan this code to quickly access the product details.
+                                </DialogDescription>
                               </DialogHeader>
                               <div className="flex justify-center p-4">
                                   <Image 
@@ -161,6 +166,14 @@ export default function ProductDetailPage({ params }: { params: Promise<{ articl
                                       height={250}
                                   />
                               </div>
+                              <DialogFooter>
+                                  <Button asChild variant="secondary">
+                                      <a href={product.qrCode} download={`${product.articleNo}-qrcode.png`}>
+                                          <Download className="mr-2 h-4 w-4" />
+                                          Download
+                                      </a>
+                                  </Button>
+                              </DialogFooter>
                           </DialogContent>
                           </Dialog>
                       )}
