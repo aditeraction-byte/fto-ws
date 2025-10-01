@@ -11,16 +11,13 @@ import { Search, QrCode } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { AuthGuard } from '@/components/auth-guard';
 
 export default function Dashboard() {
-  const { protectRoute, loading: authLoading } = useAuth();
+  const { loading: authLoading } = useAuth();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-
-  useEffect(() => {
-    protectRoute();
-  }, [protectRoute]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -66,54 +63,56 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-1 bg-background">
-        <div className="container mx-auto px-4 py-8">
-            <div className='text-center mb-12'>
-                <h1 className="text-4xl font-headline font-bold tracking-tight lg:text-5xl">
-                    Explore Our Collection
-                </h1>
-                <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                    Find the perfect product by searching by name or article number.
+    <AuthGuard>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-1 bg-background">
+          <div className="container mx-auto px-4 py-8">
+              <div className='text-center mb-12'>
+                  <h1 className="text-4xl font-headline font-bold tracking-tight lg:text-5xl">
+                      Explore Our Collection
+                  </h1>
+                  <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                      Find the perfect product by searching by name or article number.
+                  </p>
+              </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+              <div className="relative w-full max-w-lg">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <Input
+                  type="search"
+                  placeholder="Search products by name or article no..."
+                  className="w-full pl-10 py-6 rounded-full shadow-sm"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+              </div>
+              <Button asChild size="lg" className="rounded-full px-6 py-6 text-base">
+                  <Link href="/qr-scanner">
+                      <QrCode className="mr-2 h-5 w-5" />
+                      Scan QR
+                  </Link>
+              </Button>
+            </div>
+
+            {filteredProducts.length > 0 ? (
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {filteredProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-16">
+                <h2 className="text-2xl font-semibold">No Products Found</h2>
+                <p className="text-muted-foreground mt-2">
+                  Your search for &quot;{searchTerm}&quot; did not match any products.
                 </p>
-            </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <div className="relative w-full max-w-lg">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input
-                type="search"
-                placeholder="Search products by name or article no..."
-                className="w-full pl-10 py-6 rounded-full shadow-sm"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                />
-            </div>
-            <Button asChild size="lg" className="rounded-full px-6 py-6 text-base">
-                <Link href="/qr-scanner">
-                    <QrCode className="mr-2 h-5 w-5" />
-                    Scan QR
-                </Link>
-            </Button>
+              </div>
+            )}
           </div>
-
-          {filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {filteredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16">
-              <h2 className="text-2xl font-semibold">No Products Found</h2>
-              <p className="text-muted-foreground mt-2">
-                Your search for &quot;{searchTerm}&quot; did not match any products.
-              </p>
-            </div>
-          )}
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </AuthGuard>
   );
 }

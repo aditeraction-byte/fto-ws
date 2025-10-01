@@ -28,7 +28,7 @@ export function AuthGuard({ children, allowedRoles }: AuthGuardProps) {
     }
   }, [user, loading, router, allowedRoles]);
 
-  if (loading || !user || (allowedRoles && !allowedRoles.includes(user.role))) {
+  if (loading || !user || (allowedRoles && user && !allowedRoles.includes(user.role))) {
     return (
         <div className="flex flex-col min-h-screen">
              <div className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-card px-4 md:px-6">

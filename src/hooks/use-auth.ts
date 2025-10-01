@@ -28,22 +28,6 @@ export function useAuth() {
     setUser(null);
     router.push('/');
   };
-  
-  const protectRoute = (allowedRoles?: User['role'][]) => {
-    useEffect(() => {
-      if (loading) return;
 
-      if (!user) {
-        router.push('/');
-        return;
-      }
-      
-      if (allowedRoles && !allowedRoles.includes(user.role)) {
-         router.push('/dashboard'); // or a dedicated 'unauthorized' page
-      }
-
-    }, [user, loading, router, allowedRoles]);
-  }
-
-  return { user, loading, logout, protectRoute };
+  return { user, loading, logout };
 }
