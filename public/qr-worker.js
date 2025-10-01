@@ -1,7 +1,4 @@
 
-// We use a separate file for the worker to avoid issues with Next.js and bundlers.
-// This worker script will be loaded by the QRScannerPage.
-
 // jsQR is a lightweight QR code scanning library.
 // We import it from a CDN to avoid bundling issues.
 importScripts('https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js');

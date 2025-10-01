@@ -19,8 +19,8 @@ const useQrDecoder = (
   const workerRef = useRef<Worker>();
 
   useEffect(() => {
-    // Initialize the worker
-    workerRef.current = new Worker(new URL('./qr-worker.js', import.meta.url));
+    // Initialize the worker. The worker script must be in the `public` folder.
+    workerRef.current = new Worker('/qr-worker.js');
 
     const handleMessage = (e: MessageEvent) => {
       if (e.data.type === 'DECODE_RESULT') {
@@ -34,6 +34,7 @@ const useQrDecoder = (
 
     workerRef.current.addEventListener('message', handleMessage);
 
+    // Terminate the worker on component unmount
     return () => {
       workerRef.current?.removeEventListener('message', handleMessage);
       workerRef.current?.terminate();
@@ -150,7 +151,7 @@ export default function QRScannerPage() {
             stream.getTracks().forEach(track => track.stop());
         }
     }
-  }, []);
+  }, [toast]);
 
   useEffect(() => {
     let animationFrameId: number;
@@ -254,42 +255,3 @@ export default function QRScannerPage() {
     </AuthGuard>
   );
 }
-
-// Create a new file for the web worker to run QR code decoding in the background.
-// This prevents the main UI thread from freezing while processing video frames.
-const qrWorkerFile = `
-  importScripts('https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js');
-
-  self.onmessage = (e) => {
-    if (e.data.type === 'DECODE_IMAGE') {
-      const { imageData } = e.data;
-      try {
-        const code = self.jsQR(imageData.data, imageData.width, imageData.height, {
-          inversionAttempts: 'dontInvert',
-        });
-        
-        if (code) {
-          self.postMessage({ type: 'DECODE_RESULT', data: code.data });
-        } else {
-          // It's normal not to find a QR code in many frames, so we don't post an error for this.
-        }
-      } catch (error) {
-        self.postMessage({ type: 'DECODE_ERROR', error: error.message });
-      }
-    }
-  };
-`;
-// Create a blob from the worker code string
-const blob = new Blob([qrWorkerFile], { type: 'application/javascript' });
-// We are in a browser environment, but this file is processed by Next.js.
-// We need a URL to the worker. A Blob URL is the standard way to do this.
-if (typeof window !== 'undefined') {
-  const qrWorkerUrl = URL.createObjectURL(blob);
-
-  // We need to create a qr-worker.js file. Since we can't create files directly,
-  // we'll use a little trick. The worker constructor can take a URL.
-  // In modern browsers, this can be a Blob URL.
-  // We define a new file `src/app/qr-scanner/qr-worker.js` and have the page load it.
-  // The content of this file is defined in the string above.
-}
-
